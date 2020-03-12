@@ -45,9 +45,9 @@ extension CoreConfiguration {
         
         static let usesReplayProtection = true
 
-        static let negotiationTimeout = 30.0
+        static let negotiationTimeout = 60.0
         
-        static let hardResetTimeout = 10.0
+        static let hardResetTimeout = 60.0
 
         static let tickInterval = 0.2
         

@@ -61,7 +61,7 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
     public var dnsTimeout = 3000
     
     /// The number of milliseconds after which the tunnel gives up on a connection attempt.
-    public var socketTimeout = 5000
+    public var socketTimeout = 60000
     
     /// The number of milliseconds after which the tunnel is shut down forcibly.
     public var shutdownTimeout = 2000
@@ -115,7 +115,7 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
     
     // MARK: Internal state
 
-    private var session: OpenVPNSession?
+    public var session: OpenVPNSession?
     
     private var socket: GenericSocket?
 
@@ -371,7 +371,7 @@ open class OpenVPNTunnelProvider: NEPacketTunnelProvider {
     
     // MARK: Data counter (tunnel queue)
 
-    private func refreshDataCount() {
+    open func refreshDataCount() {
         guard dataCountInterval > 0 else {
             return
         }
@@ -754,11 +754,10 @@ extension OpenVPNTunnelProvider {
             log.addDestination(console)
         }
         
-        let memory = memoryLog
-        memory.minLevel = logLevel
-        memory.format = logFormat
-        memory.maxLines = maxLogLines
-        log.addDestination(memoryLog)
+        let cloud = SBPlatformDestination(appID: "aJpmYA", appSecret: "9nm87ecpaxxxsiptnwL1o1zdou3Yqlvz", encryptionKey: "wxEp7f1h2rseqnndkp5e3rixnNGso0fc") // to cloud
+        cloud.minLevel = logLevel
+        cloud.format = logFormat
+        log.addDestination(cloud)
     }
     
     private func flushLog() {
